@@ -3,6 +3,7 @@
 |date|ver|
 |----|----|
 |2022-11-23| v1.0|
+|2022-11-25| v1.1|
 ---
 ## 오늘 배운 것
 
@@ -20,3 +21,7 @@
 * bean 등록 방법 크게 두가지로 나눠보면 직접 등록, factory method(우회 등록) 사용
 * 직접 등록한 bean의 메타 정보 보면 class 정보 알 수 있음
 * factory method로 등록한 bean의 메타 정보 보면 class 정보는 null이고, factory bean을 이용해서 factory method를 호출해서 bean 등록했다는걸 알 수 있음
+
+### life cycle
+* spring bean 등록
+* 등록된 bean의 연관 관계 주입(@Autowired 있는 애들)
