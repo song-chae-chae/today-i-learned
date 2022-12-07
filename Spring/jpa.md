@@ -3,13 +3,14 @@
 |date|ver|
 |----|----|
 |2022-12-06| v1.0|
+|2022-12-07| v1.1|
 
 ---
 ## 오늘 배운 것
 
 ### jpa test
 * @Test 와 @Transactional 이 같이 붙어있으면
-    * 테스트 끝난 후 롤백해버린다.
+    * 테스트 끝난 후 롤백해버린다. -> insert의 경우 DB에 insert문을 날리지 않음
     * 롤백하기 싫으면 @Rollback(false)
 
 ### 영속성 컨텍스트
@@ -37,3 +38,21 @@
 * 양방향 연관관계가 있을 때, 순수한 객체 관점에서 양쪽 방향(연관관계)에 다 필드 채워져야 함
     * ex) JPA 사용하지 않는 테스트
 * 이 때, 각각 채워주면 실수할 확률이 높으니, 둘 중 한 곳에서 한번에 연관관계 있는 엔티티들 다 채워주면 좋음(setter 활용)
+
+### persist
+* entityManager.persist(obj)
+    * 객체를 영속성 컨텍스트에 넣고 트랜잭션이 커밋되는 시점에 DB에 반영됨(insert 쿼리 날라가는거)
+    * 영속성 컨텍스트에 key, value 있음
+    * 이때 key는 DB PK랑 매핑한 애임 -> 엔티티의 @Id 붙은 애
+    * DB에 값 넣기 전이어도 객체에 PK 채워져 있는거 보장됨
+* jpql 사용
+    * sql 쿼리랑 문법 거의 비슷한데 from 의 대상이 sql은 테이블이고, jpql은 엔티티인거
+
+### EntityManager
+* repository에서 사용할 때, @PersistenceContext 붙여서 entity manager 주입 해줘야 하는데 
+* Spring Data JPA에서는 생성자 주입 가능함(@Autowired 로 바꿔줘서)
+
+### flush
+* 영속성 컨텍스트에 있는 내용을 DB에 동기화
+* commit과는 다름
+* flush 면 rollback 가능하지만 commit하면 rollback 불가능
